@@ -1,0 +1,16 @@
+<div>
+  <h2>My {{name}}</h2>
+  <span>Your value is</span>: {{ inputValue | myCurrency }}
+  <br/>
+  <!-- <input type="text" [ngModel]="balanceAmount" maskedInputFormatter (ngModelChange)="changeModel($event)" /> -->
+  <mat-form-field>
+    <input matInput
+          [ngModel]="inputValue" 
+          [maskedInputFormatter]="'mobileNum'"
+          (ngModelChange)="changeModel($event)"
+          placeholder="Mobile Number"
+          maxlength="10"
+          minlength="10"
+          required>
+  </mat-form-field>
+</div>
