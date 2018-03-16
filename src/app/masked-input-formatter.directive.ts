@@ -9,25 +9,25 @@ export class MaskedInputFormatterDirective implements OnInit {
 
   constructor(
     private elementRef: ElementRef,
-    private currencyPipe: MaskedInputPipe,
+    private maskedInputPipe: MaskedInputPipe,
   ) {
     this.el = this.elementRef.nativeElement;
 
   }
 
   ngOnInit() {
-    this.el.value = this.currencyPipe.transform(this.el.value, this.type);
+    this.el.value = this.maskedInputPipe.transform(this.el.value, this.type);
   }
 
   @HostListener("focus", ["$event.target.value"])
   onFocus(value) {
-    // this.el.value = this.currencyPipe.parse(value, this.type); // opossite of transform
+    // this.el.value = this.maskedInputPipe.parse(value, this.type);
   }
 
-  @HostListener("window:keyup", ["$event.target.value"])
+  @HostListener("blur", ["$event.target.value"])
   keyEvent(value) {
     console.log(value);
-    this.el.value = this.currencyPipe.transform(value, this.type);
+    this.el.value = this.maskedInputPipe.transform(value, this.type);
   }
 
 }

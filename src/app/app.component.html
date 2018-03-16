@@ -1,16 +1,87 @@
 <div>
-  <h2>My {{name}}</h2>
-  <span>Your value is</span>: {{ inputValue | myCurrency }}
+  <h2>{{name}}</h2>
   <br/>
-  <!-- <input type="text" [ngModel]="balanceAmount" maskedInputFormatter (ngModelChange)="changeModel($event)" /> -->
-  <mat-form-field>
-    <input matInput
-          [ngModel]="inputValue" 
-          [maskedInputFormatter]="'mobileNum'"
-          (ngModelChange)="changeModel($event)"
-          placeholder="Mobile Number"
-          maxlength="10"
-          minlength="10"
-          required>
-  </mat-form-field>
+  <form (ngSubmit)="onSubmit()" #f="ngForm">
+      <div id="user-data">
+           <div>
+              <mat-form-field>
+                  <input matInput
+                        pattern="[0-9]{10}"
+                        placeholder="Numeric"
+                        maxlength="10"
+                        minlength="10"
+                        name="numeric"
+                        ngModel
+                        required>
+              </mat-form-field>
+           </div>
+           <div>
+              <mat-form-field>            
+                  <input matInput
+                        [maskedInputFormatter]="'zipCode'"
+                        placeholder="Zip Code"
+                        pattern="[0-9]{6}"                        
+                        maxlength="6"
+                        minlength="6"
+                        name="zip_code"
+                        ngModel
+                        required>
+              </mat-form-field>
+           </div>  
+           <div>
+              <mat-form-field>            
+                  <input matInput
+                        [maskedInputFormatter]="'ssn'"
+                        placeholder="Social Security Number"
+                        pattern="[0-9]{9}"                        
+                        maxlength="9"
+                        minlength="9"
+                        name="ssn"
+                        ngModel
+                        required>
+              </mat-form-field>
+           </div>
+           <div>
+              <mat-form-field>            
+                  <input matInput
+                        [maskedInputFormatter]="'phoneNumber'"
+                        placeholder="Phone Number"
+                        pattern="[0-9]{10}"                        
+                        maxlength="10"
+                        minlength="10"
+                        name="phone_number"
+                        ngModel
+                        required>
+              </mat-form-field>
+           </div>
+           <div>
+              <mat-form-field>            
+                  <input matInput
+                        [maskedInputFormatter]="'ipAddress'"
+                        placeholder="IP Address"
+                        pattern="[0-9]{12}"                        
+                        maxlength="12"
+                        name="ip_address"
+                        ngModel
+                        required>
+              </mat-form-field>
+           </div>
+           <div>
+              <mat-form-field>            
+                  <input matInput
+                        placeholder="Disabled"
+                        disabled>
+              </mat-form-field>
+           </div>
+           <div>
+              <button mat-raised-button
+                      color="primary"
+                      type="submit">Submit</button>
+
+              <button mat-raised-button
+                      color="accent"
+                      (click)="onClear()">Clear</button>
+           </div>
+      </div>
+  </form>
 </div>

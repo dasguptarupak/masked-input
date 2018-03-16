@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { MaskedInputPipe } from './masked-input.pipe';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -7,14 +8,25 @@ import { MaskedInputPipe } from './masked-input.pipe';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+
   name:string;
-  inputValue;
+  @ViewChild('f') signUpUser: NgForm;
+
   constructor(private mycurpipe: MaskedInputPipe) {
-    this.name = 'Custom Pipe'
-    this.inputValue = this.mycurpipe.transform('', '');
+    this.name = 'Masked Input';
   }
-  
-  private changeModel(ev) {
-    this.inputValue = ev;
+
+  onClear() {
+    this.signUpUser.setValue({
+        numeric: '',
+        zip_code: '',
+        ssn: '',
+        phone_number: '',
+        ip_address: ''
+      });
+  }
+
+  onSubmit() {
+    console.log('Print values >>>', this.signUpUser.value);
   }
 }

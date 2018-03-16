@@ -1,15 +1,10 @@
 import { Pipe, PipeTransform } from "@angular/core";
 
-const PADDING = "000000";
-
-@Pipe({ name: "myCurrency" })
+@Pipe({ name: "maskedInput" })
 export class MaskedInputPipe implements PipeTransform {
 
   private lastValue: string;
-  constructor() {
-    // TODO comes from configuration settings
-    this.lastValue = ""
-  }
+  constructor() {}
 
   transform(value: string, type: string): any {
 		console.log(type);
@@ -21,13 +16,20 @@ export class MaskedInputPipe implements PipeTransform {
 		var fractionPart = "";
 
 		var digits = value.split("");
-		var formatChar = " ";
+		var formatChar = "-";
 		var breakingPoint = [];
-		
-		if (type == 'mobileNum') {
-			breakingPoint = [3, 7];
-		}
 
+		switch (type) {
+			case 'zipCode' : 	 breakingPoint = [3];
+							 	 break;
+			case 'ssn' : 	 	 breakingPoint = [3, 6];
+							 	 break;
+			case 'phoneNumber' : breakingPoint = [3, 7];
+							     break;
+			case 'ipAddress' :   breakingPoint = [3, 7, 11];
+								 formatChar = ".";
+							     break;							 
+		}
 		for (var bpi = 0; bpi < breakingPoint.length; bpi++) {
 			var bp = breakingPoint[bpi];
 			if (digits.length > bp) {
@@ -37,51 +39,6 @@ export class MaskedInputPipe implements PipeTransform {
 		return digits.join("");
 	
   }
-  parse(value: string, type: string): any {
-	// if (this.lastValue && this.lastValue === value) {
-	// 	return value;
-	// }
-
-	// var selectionStart = elem[0].selectionStart;
-	// var selectionEnd = elem[0].selectionEnd;
-	// var beforeCursor = value.substring(0, selectionStart);
-	// var nonDigits = beforeCursor.replace(/\d/g, "");
-	// selectionStart -= nonDigits.length;
-	// selectionEnd -= nonDigits.length;
-
-	// var digitsOnly = value.replace(/\D/g, "");
-	// var digits = digitsOnly.split("");
-
-	// var formatChar = " "//"—";
-	// var breakingPoint = [];
-	// if (type == 'mobileNum') {	
-	// 	breakingPoint = [3, 7];
-	// }	
-
-	// for (var bpi = 0; bpi < breakingPoint.length; bpi++) {
-	// 	var bp = breakingPoint[bpi];
-	// 	if (digits.length > bp) {
-	// 		digits.splice(bp, 0, formatChar);
-	// 	}
-	// 	if (selectionStart > bp) {
-	// 		selectionStart++;
-	// 	}
-
-	// 	if (selectionEnd > bp) {
-	// 		selectionEnd++;
-	// 	}
-	// }
-
-
-	// this.lastValue = digits.join("");
-
-	// ngModelController.$setViewValue(this.lastValue);
-	// ngModelController.$render();
-
-	// elem[0].selectionStart = selectionStart;
-	// elem[0].selectionEnd = selectionEnd;
-
-	// return digitsOnly;
-  }
+//   parse(value: string, type: string): any { }
 
 }
