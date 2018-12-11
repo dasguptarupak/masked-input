@@ -2,7 +2,9 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.7.2.
 
-# Demo URL - https://angular-b5vtj6.stackblitz.io
+# Demo URL 
+
+https://angular-b5vtj6.stackblitz.io
 
 ## Installation
 
